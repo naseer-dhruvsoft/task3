@@ -9,17 +9,20 @@ args = vars(ap.parse_args())
 
 # Loading the input image
 image = cv2.imread(args["image"])
-# image2 = cv2.imread(args["image"])
 cv2.imshow("Actual_image", image)
 cv2.waitKey(0)
+# image2 = cv2.imread(args["image"])
+# height = 1000
+# width = 1000
+# dimensions = (height, width)
 
-# width = int(image.shape[1] * scale_percent / 100)
-# height = int(image.shape[0] * scale_percent / 100)
-# dim = (width, height)
-# # resize image
-# resized = cv2.resize(image, dim, interpolation = cv2.INTER_AREA)
+# resizing the given image
+adjusted_img = cv2.resize(image, (1000, 1000), cv2.INTER_LINEAR ) 
+cv2.imshow("Resized_Image", adjusted_img)
+cv2.waitKey(0)
+
 # # converting to grayscale image
-gray_img =  cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+gray_img =  cv2.cvtColor(adjusted_img, cv2.COLOR_BGR2GRAY)
 cv2.imshow("Grayscale_image", gray_img)
 cv2.waitKey(0)
 # applying threshold to grayscale image
@@ -36,7 +39,7 @@ for c in cnts:
 	if cv2.contourArea(c) > 637:
 		# print(cv2.contourArea(c))
 		i=i+1
-		cv2.drawContours(image, [c], -1, (0,0, 255), 5)
+		cv2.drawContours(adjusted_img, [c], -1, (0,0, 255), 5)
     # #get the min enclosing circle
     # (x, y), radius = cv2.minEnclosingCircle(c)
     # # convert all values to int
@@ -49,6 +52,6 @@ for c in cnts:
     #     i=i+1   
 print(i)
 # cv2.drawContours(image, cnts, -1, (0, 255, 0), 1)
-cv2.imshow("contours", image)
+cv2.imshow("contours", adjusted_img)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
