@@ -26,7 +26,7 @@ gray_img =  cv2.cvtColor(adjusted_img, cv2.COLOR_BGR2GRAY)
 cv2.imshow("Grayscale_image", gray_img)
 cv2.waitKey(0)
 # applying threshold to grayscale image
-threshold_img = cv2.threshold(gray_img, 50, 255, cv2.THRESH_BINARY)[1]
+threshold_img = cv2.adaptiveThreshold(gray_img, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 299, 0)
 cv2.imshow("Threshold", threshold_img)
 cv2.waitKey(0)
 # contours to threshold
@@ -36,8 +36,8 @@ output_img = threshold_img.copy()
 # loop over the contours
 i = 0
 for c in cnts:
-	if cv2.contourArea(c) > 637:
-		# print(cv2.contourArea(c))
+	if cv2.contourArea(c) > 6800:
+		print(cv2.contourArea(c))
 		i=i+1
 		cv2.drawContours(adjusted_img, [c], -1, (0,0, 255), 5)
     # #get the min enclosing circle
